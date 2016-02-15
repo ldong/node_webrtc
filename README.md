@@ -29,6 +29,24 @@ npm start
 | 320   |180     |16:9         |
 
 
+## RTCDataChannel Overview
+Data Channels:
+
+1. Reliable: `{ordered: true}`
+2. Unreliable: `{ordered: false}`
+3. More options
+
+  ```
+  {
+    ordered: true/false,
+    maxRetransmitTime: milliseconds,
+    maxRetransmits: maximum number of times to retry,
+    protocol: other than SCTP,
+    negotiated: true keeps WebRTC from setting up a channel on other side,
+    id: provde your own id
+  }
+  ```
+
 # Useful Resource
 
 1. [getUserMedia.js](https://github.com/addyosmani/getUserMedia.js/):
