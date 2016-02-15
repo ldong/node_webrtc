@@ -66,4 +66,16 @@
     displayMessage(data.message);
   });
 
+  io.on('message', function(data){
+    displayMessage(data.author + ': ' + data.message);
+  });
+
+  sendMessage.addEventListener('click', function(event){
+    io.emit('send', {
+      author: myName.value,
+      message: myMessage.value
+    });
+    event.preventDefault();
+  }, false);
+
 }());

@@ -17,5 +17,22 @@ app.io.route('ready', function(req){
   });
 });
 
+app.io.route('send', function(req){
+  app.io.room(req.data.room).broadcast('message', {
+    message: req.data.message,
+    author: req.data.author
+  });
+});
+
+
+// app.io.route('ready', function(req){
+//   req.io.join(req.data);
+//   app.io.room(req.data).broadcast('accounce', {
+//     message: 'New Client in Room:'+req.data
+//   });
+// });
+
+
+
 console.log('Please visit http://localhost:'+PORT+'/');
 app.listen(PORT);
