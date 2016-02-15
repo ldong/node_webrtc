@@ -1,8 +1,8 @@
 var express = require('express.io');
 var app = express();
-app.http().io();
 var PORT = 3000;
-console.log('Express.io server started');
+
+app.http().io();
 
 app.use(express.static(__dirname +'/public'));
 
@@ -36,5 +36,6 @@ app.io.route('signal', function(req){
   });
 });
 
+console.log('Express.io server started');
 console.log('Please visit http://localhost:'+PORT+'/');
 app.listen(PORT);
