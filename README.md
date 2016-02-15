@@ -34,3 +34,5 @@ npm start
 1. [getUserMedia.js](https://github.com/addyosmani/getUserMedia.js/):
 getUserMedia.js is a cross-browser shim for the getUserMedia() API (a part of
 WebRTC)
+2. Socket.IO
+3. FAYE: Pub/Sub

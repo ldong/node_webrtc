@@ -66,9 +66,9 @@
   var profilePicture = document.getElementById('profilePicture'); // canvas
   var profilePictureOutput = document.getElementById('profilePictureOutput');
 
-  var width = 240;  // desired width of the profile picture
+  var width = 640;   // desired width of the profile picture
   var ratio = 4.0/3; // desired ratio
-  var height = 0; // calculated height
+  var height = 0;    // calculated height
   var streaming = false; // used to determine whether video has loaded
 
   snapshotButton.addEventListener('click', function(event){
