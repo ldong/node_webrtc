@@ -59,7 +59,50 @@
     }
   }
   videoSource.onchange = startStream;
-  
   getMediaStreamTrack(getCameras);
   startStream();
+
+  var snapshotButton = document.getElementById('snapshot');
+  var profilePicture = document.getElementById('profilePicture'); // canvas
+  var profilePictureOutput = document.getElementById('profilePictureOutput');
+
+  var width = 240;  // desired width of the profile picture
+  var ratio = 4.0/3; // desired ratio
+  var height = 0; // calculated height
+  var streaming = false; // used to determine whether video has loaded
+
+  snapshotButton.addEventListener('click', function(event){
+    takeProfilePicture(profilePicture, profilePictureOutput);
+    event.preventDefault();
+  });
+
+  localVideo.addEventListener('canplay', function(event){
+    event.preventDefault();
+
+    if(!streaming){
+      height = localVideo.videoHeight / (localVideo.videoHeight / width);
+      if (isNaN(height)) {
+          height = width / ratio;
+      }
+
+      localVideo.setAttribute('width', width);
+      localVideo.setAttribute('height', height);
+
+      profilePicture.setAttribute('width', width);
+      profilePicture.setAttribute('height', height);
+
+      streaming = true;
+    }
+  }, false);
+
+  function takeProfilePicture(canvasSource, imageSource){
+      var context = canvasSource.getContext('2d');
+      if (width && height) {
+        canvasSource.width = width;
+        canvasSource.hegiht = height;
+        context.drawImage(localVideo, 0, 0, width, height);
+        var data = canvasSource.toDataURL('image/png');
+        imageSource.setAttribute('src', data);
+      }
+  }
 }());
