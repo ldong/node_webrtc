@@ -2,35 +2,16 @@
   var isAudio = false;
   var isVideo = true;
   var localVideo = document.getElementById('localVideo');
-  var videoSource = document.getElementById('camera');
+  var remoteVideo = document.getElementById('remoteVideo');
 
   var myName = document.getElementById('myName');
   var myMessage = document.getElementById('myMessage');
   var sendMessage = document.getElementById('sendMessage');
   var chatArea = document.getElementById('chatArea');
+  var signalingArea = document.getElementById('signalingArea');
+
   var ROOM = 'CHAT';
-
-  function getCameras(sourceInfos) {
-    for (var i=0; i< sourceInfos.length; ++i) {
-      var sourceInfo = sourceInfos[i];
-      var option = document.createElement('option');
-      option.value = sourceInfo.id;
-      if (sourceInfo.kind === 'video') {
-        option.text = sourceInfo.label || 'camera ' + (videoSource.length + 1);
-        videoSource.appendChild(option);
-      }
-    }
-  };
-
-  var startStream = function() {
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    var constraints = {
-      audio: isAudio,
-      video: isVideo
-    };
-
-    navigator.getUserMedia(constraints, onSuccess, onError);
-  }
+  var SIGNAL_ROOM ='SIGNAL_ROOM';
 
   var onSuccess = function(stream) {
     console.log('Success');
@@ -40,30 +21,36 @@
 
   var onError = function(error) {
     console.log('Error', error);
-
   };
 
-  // MediaStreamTrack.getSources is deprecated
-  var getMediaStreamTrack = function(callback) {
-    if (typeof MediaStreamTrack === 'undefined' || typeof MediaStreamTrack.getSources === 'undefined') {
-      document.querySelector('#cameraSelector').style.visibility = 'hidden';
-    } else {
-      MediaStreamTrack.getSources(callback);
-    }
-  }
-  videoSource.onchange = startStream;
-  getMediaStreamTrack(getCameras);
-  
-  // startStream();
+  var displaySignlingMessage = function(message){
+    console.log('message', message);
+    signalingArea.innerHTML = signalingArea.innerHTML+ '<br/>' + message;
+  };
 
   var displayMessage = function(message){
-      chatArea.innerHTML = chatArea.innerHTML+ '<br/>' + message;
+    chatArea.innerHTML = chatArea.innerHTML+ '<br/>' + message;
   };
 
   io = io.connect();
-  io.emit('ready', ROOM);
+  io.emit('ready', {
+    chat_room: ROOM,
+    signal_room: SIGNAL_ROOM
+  });
+
+  io.emit('signal', {
+    type: 'user_curr',
+    message: 'ready?',
+    room: SIGNAL_ROOM
+  })
+
+
   io.on('accounce', function(data){
     displayMessage(data.message);
+  });
+
+  io.on('signaling_message', function(data){
+    displaySignlingMessage('Signal received: ' + data.type);
   });
 
   io.on('message', function(data){
