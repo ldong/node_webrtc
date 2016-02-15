@@ -36,3 +36,5 @@ getUserMedia.js is a cross-browser shim for the getUserMedia() API (a part of
 WebRTC)
 2. Socket.IO
 3. FAYE: Pub/Sub
+4. [Getting Started with WebRTC - HTML5 Rocks](http://www.html5rocks.com/en/tutorials/webrtc/basics/)
+5. [WebRTC in the real world: STUN, TURN and signaling](http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/)
