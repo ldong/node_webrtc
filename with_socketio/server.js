@@ -1,8 +1,15 @@
+var fs = require('fs')
 var express = require('express.io');
 var app = express();
 var PORT = 3000;
 
-app.http().io();
+options = {
+    key: fs.readFileSync('./keys/key'), 
+    cert: fs.readFileSync('./keys/cert')
+} 
+
+app.https(options).io()
+// app.http().io();
 
 app.use(express.static(__dirname +'/public'));
 
