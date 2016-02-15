@@ -51,6 +51,15 @@
   };
 
   // MediaStreamTrack.getSources is deprecated
-  MediaStreamTrack.getSources(getCameras);
+  var getMediaStreamTrack = function(callback) {
+    if (typeof MediaStreamTrack === 'undefined' || typeof MediaStreamTrack.getSources === 'undefined') {
+      document.querySelector('#cameraSelector').style.visibility = 'hidden';
+    } else {
+      MediaStreamTrack.getSources(callback);
+    }
+  }
+  videoSource.onchange = startStream;
+  
+  getMediaStreamTrack(getCameras);
   startStream();
 }());

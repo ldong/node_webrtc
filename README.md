@@ -29,4 +29,8 @@ npm start
 | 320|180|16:9|
 
 
+# Useful Resource
 
+1. [getUserMedia.js](https://github.com/addyosmani/getUserMedia.js/):
+getUserMedia.js is a cross-browser shim for the getUserMedia() API (a part of
+WebRTC)
