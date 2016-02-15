@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Me trying out WebRTC</title>
+  </head>
+  <body>
+    <div id="cameraSelector">
+      video <select name="" id="camera"></select>
+    </div>
+
+    <p>
+      <button id="takeprofilePicture" type="button" autofocus="true">
+        Create a profile Picture
+      </button>
+     </p>
+
+     <div>
+        <label for="">YourName</label>
+        <input type="text" id="myName">
+
+        <label for="">YourMessage</label>
+        <input type="text" id="myMessage">
+        
+        <input type="submit" id="sendMessage">
+        <div id="chatArea">Message output:</div>
+      </div>
+
+    <video id='localVideo' autoplay></video>
+    <script src="./socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/script.js" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>
